@@ -1,0 +1,1 @@
+"""Fiscal RAG prototype package."""

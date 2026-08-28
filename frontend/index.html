@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="财政业务智能助手">
+    <title>财政业务智能助手</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <span class="brand-mark" aria-hidden="true">F</span>
+          <div>
+            <h1>财政业务智能助手</h1>
+            <p>内部知识问答与轻量对话</p>
+          </div>
+        </div>
+        <div class="service-status" id="service-status" data-state="checking" role="status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="service-status-text">正在检查服务</span>
+        </div>
+      </header>
+
+      <main class="conversation" id="conversation" aria-live="polite">
+        <section class="empty-state" id="empty-state">
+          <p class="empty-kicker">FISCAL ASSISTANT</p>
+          <h2>有什么可以帮你？</h2>
+          <p>可查询内部操作指南，也可以直接打个招呼</p>
+        </section>
+      </main>
+
+      <footer class="composer-bar">
+        <form class="composer" id="ask-form">
+          <label class="sr-only" for="question">问题</label>
+          <textarea
+            id="question"
+            name="question"
+            rows="2"
+            maxlength="2000"
+            placeholder="输入财政业务问题或消息"
+            required
+          ></textarea>
+          <button type="submit" id="send-button" data-mode="send">发送</button>
+        </form>
+        <p class="composer-meta">
+          <span>提交内容用于内部质量改进，原始记录保留 90 天</span>
+          <span id="character-count">0 / 2000</span>
+        </p>
+      </footer>
+    </div>
+
+    <template id="user-turn-template">
+      <article class="turn turn-user">
+        <p class="turn-label">你</p>
+        <p class="user-question"></p>
+      </article>
+    </template>
+
+    <template id="assistant-turn-template">
+      <article class="turn turn-assistant">
+        <div class="assistant-heading">
+          <span class="assistant-mark" aria-hidden="true">F</span>
+          <div>
+            <p class="turn-label">财政业务智能助手</p>
+            <p class="request-id"></p>
+          </div>
+        </div>
+        <div class="answer-text"></div>
+        <div class="feedback" hidden>
+          <span class="feedback-label">这个回答有帮助吗？</span>
+          <button
+            class="feedback-button"
+            type="button"
+            data-rating="positive"
+            aria-label="赞同这个回答"
+            aria-pressed="false"
+            title="赞同"
+          >👍</button>
+          <button
+            class="feedback-button"
+            type="button"
+            data-rating="negative"
+            aria-label="不赞同这个回答"
+            aria-pressed="false"
+            title="不赞同"
+          >👎</button>
+          <span class="feedback-status" role="status"></span>
+        </div>
+        <details class="trace" open>
+          <summary>检索详情</summary>
+          <div class="trace-body">
+            <dl class="trace-grid">
+              <div>
+                <dt>实际检索问题</dt>
+                <dd class="retrieval-query"></dd>
+              </div>
+              <div>
+                <dt>模型改写问题</dt>
+                <dd class="rewrite-query"></dd>
+              </div>
+              <div>
+                <dt>Guard 状态</dt>
+                <dd><span class="guard-status"></span></dd>
+              </div>
+              <div>
+                <dt>必要约束</dt>
+                <dd class="required-constraints"></dd>
+              </div>
+              <div class="trace-wide">
+                <dt>缺失约束</dt>
+                <dd class="missing-constraints"></dd>
+              </div>
+            </dl>
+            <section class="sources-section">
+              <h3>引用来源</h3>
+              <div class="sources-list"></div>
+            </section>
+          </div>
+        </details>
+      </article>
+    </template>
+
+    <template id="loading-turn-template">
+      <article class="turn turn-assistant loading-turn" aria-label="正在生成答案">
+        <div class="assistant-heading">
+          <span class="assistant-mark" aria-hidden="true">F</span>
+          <p class="turn-label">财政业务智能助手</p>
+        </div>
+        <div class="loading-line">
+          <span></span><span></span><span></span>
+        </div>
+      </article>
+    </template>
+
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

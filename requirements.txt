@@ -1,0 +1,11 @@
+langchain-core
+langchain-text-splitters
+chromadb
+fastapi
+pytest
+openai
+python-dotenv
+numpy
+langchain-deepseek
+rank-bm25
+uvicorn[standard]
